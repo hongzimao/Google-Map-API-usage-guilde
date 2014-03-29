@@ -1,0 +1,87 @@
+\documentclass [12pt] {article}
+\usepackage[top=1in, bottom=0.9in, left=1in, right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage[export]{adjustbox}
+\usepackage[english]{babel}
+\begin {document}
+\begin{spacing}{1.5}
+\noindent
+\large
+\begin {center}
+\textbf{Set up Google Map API v2 on Mac with Eclipse}\\
+\end {center}
+~\\
+\normalsize
+\noindent
+\url{https://developers.google.com/maps/documentation/android/start}\\
+\\
+\textbf{1. Install Google Play Service SDK }\\
+This can be done in Eclipse$\rightarrow$Window$\rightarrow$Android SDK manager\\
+~\\
+\textbf{2. Associate Google Play Service Library}\\
+Right click on project$\rightarrow$properties$\rightarrow$android$\rightarrow$add$\rightarrow$choose Google Play Service Library\\
+~\\
+\textbf{3. Add meta-data in Manifest}\\
+Add
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt}
+ \begin{lstlisting}
+ <meta-data
+    android:name="com.google.android.gms.version"
+    android:value="@integer/google_play_services_version" />
+ \end{lstlisting}
+right after $<$application$>$\\
+~\\
+\textbf{4. Get SHA1}\\
+on terminal, type in 
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt}
+ \begin{lstlisting}
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+ \end{lstlisting}
+ copy SHA1\\
+ ~\\
+ \textbf{5. Create object in Google}\\
+ Go to \url{https://console.developers.google.com/project}\\
+ Create a new project\\
+ ~\\
+ \textbf{6. Get API key}\\
+In left selection panel, API. Enable Google Map API v2\\
+In credentials, create new key\\
+Choose Android key, type in SHAI;project package name\\
+Copy the API key\\
+~\\
+\textbf{7. Add API key in Manifest}\\
+in androidManifest.xml, add
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt}
+ \begin{lstlisting}
+ <meta-data
+    android:name="com.google.android.maps.v2.API_KEY"
+    android:value="API_KEY"/>
+ \end{lstlisting}
+ right before $</$application$>$
+ \\
+ ~\\
+ \textbf{8. Add internet permission}\\
+ in androidManifest.xml, add 
+ \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt}
+ \begin{lstlisting}
+ <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+	
+	<uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+\end{lstlisting}
+ right before $</$manifest$>$
+ 
+\end {spacing}
+\end {document}
